@@ -9,10 +9,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
-    resources :todos
-  end
-
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
