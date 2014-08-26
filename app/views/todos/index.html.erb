@@ -1,58 +1,47 @@
+<br>
+<br>
+<%= link_to 'Add a new To-Do', new_todo_path %>
+
+<% if !@todos.empty? %>
 <h1>To-Do's</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Completed</th>
-      <th>Action</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @todos.each do |todo| %>
-      <tr>
-        <td><strong><%= todo.name %></strong></td>
-        <td><%= todo.completed %></td>
-        <td><%= link_to 'Mark as Completed', complete_todo_path(todo), :method => :put %>
-        <td><%= link_to 'Show', todo %></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
-      </tr>
+      <% if todo.user_id == current_user.id%>
+        <tr>
+          <td><strong><%= todo.name %></strong></td>
+          <td><%= link_to 'Mark as Completed', complete_todo_path(todo), :method => :put %>
+          <td><%= link_to 'Show', todo %></td>
+          <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+          <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<% end %>
 
+<% if !@completes.empty? %>
 <h1>Completed To-Do's</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Completed</th>
-      <th>Action</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @completes.each do |todo| %>
-      <tr>
-        <td><strong><%= todo.name %></strong></td>
-        <td><%= todo.completed %></td>
-        <td><%= link_to 'Move Back to To-Do List', uncomplete_todo_path(todo), :method => :put %>
-        <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
-        <td><%= link_to 'Show', todo %></td>
-        <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-        <td><%= link_to 'Destroy', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
-      </tr>
+      <% if todo.user_id == current_user.id%>
+        <tr>
+          <td><strong><%= todo.name %></strong></td>
+          <td><%= link_to 'Mark as Incompleted', uncomplete_todo_path(todo), :method => :put %>
+          <td><%= link_to 'Show', todo %></td>
+          <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+          <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'Add a new To-Do', new_todo_path %>
+<% end %>
