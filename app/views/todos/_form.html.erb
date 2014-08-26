@@ -14,12 +14,18 @@
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
+    <%= f.hidden_field :completed, :value => false %>
   </div>
+
+<% if false %>
   <div class="field">
     <%= f.label :completed %><br>
     <%= f.check_box :completed %>
   </div>
+<% end %>
+  
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit%>
   </div>
 <% end %>

@@ -4,7 +4,8 @@ class TodosController < ApplicationController
   # GET /todos
   # GET /todos.json
   def index
-    @todos = Todo.all
+    @todos = Todo.where(completed: false)
+    @completes = Todo.where(completed: true)
   end
 
   # GET /todos/1
@@ -21,6 +22,38 @@ class TodosController < ApplicationController
   def edit
   end
 
+  # GET /todos/1/complete
+  def complete
+    @todo = Todo.find(params[:id])
+
+    respond_to do |format|
+      if @todo.update_attribute(:completed, true)
+        format.html { redirect_to @todo, notice: 'To-Do was successfully updated.' }
+        format.json { render :show, status: :ok, location: @todo }
+
+      else
+        format.html { redirect_to @todo, notice: 'To-Do was not updated... Is it already done???' }
+        format.json { render json: @todo.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+    # GET /todos/1/complete
+  def uncomplete
+    @todo = Todo.find(params[:id])
+
+    respond_to do |format|
+      if @todo.update_attribute(:completed, false)
+        format.html { redirect_to @todo, notice: 'To-Do was successfully updated.' }
+        format.json { render :show, status: :ok, location: @todo }
+
+      else
+        format.html { redirect_to @todo, notice: 'To-Do was not updated... Is it already done???' }
+        format.json { render json: @todo.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /todos
   # POST /todos.json
   def create
@@ -28,7 +61,7 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.save
-        format.html { redirect_to @todo, notice: 'Todo was successfully created.' }
+        format.html { redirect_to @todo, notice: 'To-Do was successfully created.' }
         format.json { render :show, status: :created, location: @todo }
       else
         format.html { render :new }
@@ -42,10 +75,15 @@ class TodosController < ApplicationController
   def update
     respond_to do |format|
       if @todo.update(todo_params)
-        format.html { redirect_to @todo, notice: 'Todo was successfully updated.' }
+        format.html { redirect_to @todo, notice: 'To-Do was successfully updated.' }
         format.json { render :show, status: :ok, location: @todo }
-      else
+
+      elsif false #This will never happen as the user cannot edit for now.
         format.html { render :edit }
+        format.json { render json: @todo.errors, status: :unprocessable_entity }
+
+      else
+        format.html { redirect_to @todo, notice: 'To-Do was not updated... Is it already done???' }
         format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +94,7 @@ class TodosController < ApplicationController
   def destroy
     @todo.destroy
     respond_to do |format|
-      format.html { redirect_to todos_url, notice: 'Todo was successfully destroyed.' }
+      format.html { redirect_to todos_url, notice: 'To-Do was successfully removed.' }
       format.json { head :no_content }
     end
   end

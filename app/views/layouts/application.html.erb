@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ToDoApp</title>
+  <title>To-Do App</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% if user_signed_in? %>
+	You are currently signed in as <%= current_user.email %>, not you?
+	<%= link_to "Sign Out", destroy_user_session_path, :method => :delete %>
+<% else %>
+	<%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign In", new_user_session_path %>
+<% end %>
+
+<% flash.each do |name, message| %>
+	<%= content_tag :div, message, :id => "flash_#{name}" %>
+<%end%>
 
 <%= yield %>
 
