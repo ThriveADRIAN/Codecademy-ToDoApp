@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :todos do
+    member do
+      put :complete
+    end
+    member do
+      put :uncomplete
+    end
+  end
+
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
