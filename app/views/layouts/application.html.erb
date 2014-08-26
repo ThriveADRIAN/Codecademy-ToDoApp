@@ -18,6 +18,10 @@
   <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
 <% end %>
 
+<% flash.each do |name, message| %>
+	<%= content_tag :div, message, :id => "flash_#{name}" %>
+<%end%>
+
 <%= yield %>
 
 </body>
