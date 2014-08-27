@@ -29,8 +29,8 @@ class TodosController < ApplicationController
 
     respond_to do |format|
       if @todo.update_attribute(:completed, true)
-        format.html { redirect_to @todo, notice: 'To-Do was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo }
+        format.html { redirect_to todos_url, notice: 'To-Do was successfully updated.' }
+        format.json { render :show, status: :ok, location: todos_url}
 
       else
         format.html { redirect_to @todo, notice: 'To-Do was not updated... Is it already done???' }
@@ -39,17 +39,17 @@ class TodosController < ApplicationController
     end
   end
 
-    # GET /todos/1/complete
+  # GET /todos/1/uncomplete
   def uncomplete
     @todo = Todo.find(params[:id])
 
     respond_to do |format|
       if @todo.update_attribute(:completed, false)
-        format.html { redirect_to @todo, notice: 'To-Do was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo }
+        format.html { redirect_to todos_url, notice: 'To-Do was successfully updated.' }
+        format.json { render :show, status: :ok, location: todos_url }
 
       else
-        format.html { redirect_to @todo, notice: 'To-Do was not updated... Is it already done???' }
+        format.html { redirect_to todos_url, notice: 'To-Do was not updated... Is it already done???' }
         format.json { render json: @todo.errors, status: :unprocessable_entity }
       end
     end
@@ -63,8 +63,8 @@ class TodosController < ApplicationController
     
     respond_to do |format|
       if @todo.save
-        format.html { redirect_to @todo, notice: 'To-Do was successfully created.' }
-        format.json { render :show, status: :created, location: @todo }
+        format.html { redirect_to todos_url, notice: 'To-Do was successfully created.' }
+        format.json { render :show, status: :created, location: todos_url }
       else
         format.html { render :new }
         format.json { render json: @todo.errors, status: :unprocessable_entity }
@@ -77,8 +77,8 @@ class TodosController < ApplicationController
   def update
     respond_to do |format|
       if @todo.update(todo_params)
-        format.html { redirect_to @todo, notice: 'To-Do was successfully updated.' }
-        format.json { render :show, status: :ok, location: @todo }
+        format.html { redirect_to todos_url, notice: 'To-Do was successfully updated.' }
+        format.json { render :show, status: :ok, location: todos_url }
 
       elsif false #This will never happen as the user cannot edit for now.
         format.html { render :edit }
