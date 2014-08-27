@@ -5,7 +5,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :todos
-  has_many :user_roles
+  has_many :roles, :through => :user_roles
+
+  ROLES = %w[admin user]
+
+  def role_symbols
+    [role.to_sym]
+  end
 
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
@@ -17,6 +23,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def admin?
-    roles.include?(admin)
+  def role?(role) 
+    roles.include?(role.to_s)
+  end
 end

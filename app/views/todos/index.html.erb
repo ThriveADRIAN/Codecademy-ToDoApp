@@ -11,7 +11,9 @@
             <td><strong><%= todo.name %></strong></td>
             <td><%= link_to 'Mark as Completed', complete_todo_path(todo), :method => :put %>
             <td><%= link_to 'Show', todo %></td>
-            <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+            <% if can? :update, @todo %>
+              <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+            <% end %>
             <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
           </tr>
         <% end %>
@@ -33,7 +35,9 @@
             <td><strong><%= todo.name %></strong></td>
             <td><%= link_to 'Mark as Incompleted', uncomplete_todo_path(todo), :method => :put %>
             <td><%= link_to 'Show', todo %></td>
-            <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+            <% if can? :update, @todo %>
+              <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+            <% end %>
             <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
           </tr>
         <% end %>

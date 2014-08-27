@@ -11,6 +11,14 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :todos
+    resources :user_roles
+  end
+
+  resources :roles do
+    resources :user_roles
+  end
+
+  resources :user_roles do
   end
 
   get 'welcome/index'
