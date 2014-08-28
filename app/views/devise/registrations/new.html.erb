@@ -12,15 +12,15 @@
   <div><%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
 
-    <% for role in Role.all %>
-      <div>
-        <%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) %>
-        <%=h role.name %>
-      </div>
-    <% end %>
-    <%= hidden_field_tag "user[role_ids][]", "" %>
+  <br />
 
-  <br>
+  <% for role in User::ROLES %>
+    <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>
+    <%= label_tag "user_roles_#{role}", role.humanize %><br />
+  <% end %>
+  <%= hidden_field_tag "user[roles][]", "" %>
+
+  <br />
 
   <div><%= f.submit "Sign up", class: "btn btn-sm btn-default" %></div>
 <% end %>
