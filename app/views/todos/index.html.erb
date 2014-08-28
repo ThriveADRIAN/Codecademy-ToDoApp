@@ -1,45 +1,62 @@
-<%= link_to 'Add a new To-Do', new_todo_path %>
+<div>
+  <%= link_to 'Add a new To-Do', new_todo_path, class: "btn btn-primary" %>
+</div>
 
-<% if !@todos.empty? %>
-  <h1>To-Do's</h1>
+<br>
 
-  <table>
-    <tbody>
-      <% @todos.each do |todo| %>
-        <% if todo.user_id == current_user.id%>
-          <tr>
-            <td><strong><%= todo.name %></strong></td>
-            <td><%= link_to 'Mark as Completed', complete_todo_path(todo), :method => :put %>
-            <td><%= link_to 'Show', todo %></td>
-            <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-            <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
+<div class="col-sm-12">
+  <% if !@todos.empty? %>
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">To-Do</h3>
+      </div>
+      <div class="panel-body">
+        <table>
+          <tbody>
+            <% @todos.each do |todo| %>
+              <% if todo.user_id == current_user.id%>
+                <tr>
+                  <td><strong><%= todo.name %></strong></td>
+                  <td><%= link_to 'Mark as Completed', complete_todo_path(todo), class: "btn btn-link", :method => :put %>
+                  <td><%= link_to 'Show', todo, class: "btn btn-link" %></td>
+                  <% if can? :update, @todo %>
+                    <td><%= link_to 'Edit', edit_todo_path(todo),  class: "btn btn-link" %></td>
+                  <% end %>
+                  <td><%= link_to 'Remove', todo,  class: "btn btn-link", method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
 
-  <br>
-<% end %>
+  <% if !@completes.empty? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Completed</h3>
+      </div>
+      <div class="panel-body">
+        <table>
+          <tbody>
+            <% @completes.each do |todo| %>
+              <% if todo.user_id == current_user.id%>
+                <tr>
+                  <td><strong><%= todo.name %></strong></td>
+                  <td><%= link_to 'Mark as Incompleted', uncomplete_todo_path(todo), class: "btn btn-link", :method => :put %>
+                  <td><%= link_to 'Show', todo,  class: "btn btn-link" %></td>
+                  <% if can? :update, @todo %>
+                    <td><%= link_to 'Edit', edit_todo_path(todo),  class: "btn btn-link" %></td>
+                  <% end %>
+                  <td><%= link_to 'Remove', todo,  class: "btn btn-link", method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div><!-- /.col-sm-12 -->
 
-<% if !@completes.empty? %>
-  <h1>Completed To-Do's</h1>
-
-  <table>
-    <tbody>
-      <% @completes.each do |todo| %>
-        <% if todo.user_id == current_user.id%>
-          <tr>
-            <td><strong><%= todo.name %></strong></td>
-            <td><%= link_to 'Mark as Incompleted', uncomplete_todo_path(todo), :method => :put %>
-            <td><%= link_to 'Show', todo %></td>
-            <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
-            <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-
-  <br>
-<% end %>

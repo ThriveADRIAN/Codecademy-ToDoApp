@@ -1,0 +1,21 @@
+<%= render "shared/header" %>
+
+    <div class="container theme-showcase">
+
+      <% flash.each do |name, message| %>
+        <div class="alert alert-info">
+            <%= content_tag :div, "Status: " + message, :id => "flash_#{name}" %>
+        </div>
+      <%end%>
+
+      <%= yield %>
+
+    </div> <!-- /container -->
+
+    <!-- Javascripts
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "flatly" %>
+    <%= yield(:page_javascript) if content_for?(:page_javascript) %>
+
+<%= render "shared/footer" %>
