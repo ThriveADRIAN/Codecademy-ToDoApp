@@ -6,7 +6,11 @@
   <div><%= f.label :email %><br />
   <%= f.email_field :email, autofocus: true %></div>
 
-  <div><%= f.submit "Resend unlock instructions" %></div>
+  <br>
+
+  <div><%= f.submit "Resend unlock instructions", class: "btn btn-sm btn-default" %></div>
 <% end %>
+
+<br>
 
 <%= render "devise/shared/links" %>

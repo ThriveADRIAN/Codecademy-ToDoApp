@@ -17,12 +17,12 @@
               <% if todo.user_id == current_user.id%>
                 <tr>
                   <td><strong><%= todo.name %></strong></td>
-                  <td><%= link_to 'Mark as Completed', complete_todo_path(todo), :method => :put %>
-                  <td><%= link_to 'Show', todo %></td>
+                  <td><%= link_to 'Mark as Completed', complete_todo_path(todo), class: "btn btn-link", :method => :put %>
+                  <td><%= link_to 'Show', todo, class: "btn btn-link" %></td>
                   <% if can? :update, @todo %>
-                    <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+                    <td><%= link_to 'Edit', edit_todo_path(todo),  class: "btn btn-link" %></td>
                   <% end %>
-                  <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
+                  <td><%= link_to 'Remove', todo,  class: "btn btn-link", method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
                 </tr>
               <% end %>
             <% end %>
@@ -44,12 +44,12 @@
               <% if todo.user_id == current_user.id%>
                 <tr>
                   <td><strong><%= todo.name %></strong></td>
-                  <td><%= link_to 'Mark as Incompleted', uncomplete_todo_path(todo), :method => :put %>
-                  <td><%= link_to 'Show', todo %></td>
+                  <td><%= link_to 'Mark as Incompleted', uncomplete_todo_path(todo), class: "btn btn-link", :method => :put %>
+                  <td><%= link_to 'Show', todo,  class: "btn btn-link" %></td>
                   <% if can? :update, @todo %>
-                    <td><%= link_to 'Edit', edit_todo_path(todo) %></td>
+                    <td><%= link_to 'Edit', edit_todo_path(todo),  class: "btn btn-link" %></td>
                   <% end %>
-                  <td><%= link_to 'Remove', todo, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
+                  <td><%= link_to 'Remove', todo,  class: "btn btn-link", method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
                 </tr>
               <% end %>
             <% end %>

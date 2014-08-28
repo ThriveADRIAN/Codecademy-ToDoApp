@@ -20,7 +20,11 @@
     <% end %>
     <%= hidden_field_tag "user[role_ids][]", "" %>
 
-  <div><%= f.submit "Sign up" %></div>
+  <br>
+
+  <div><%= f.submit "Sign up", class: "btn btn-sm btn-default" %></div>
 <% end %>
+
+<br>
 
 <%= render "devise/shared/links" %>
